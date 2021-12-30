@@ -16,14 +16,9 @@ const CoinScreen = () => {
     const [historyStateCoin, setHistoryStateCoin] = useState<stateCoin[]>([])
     const round = useRef<number>(1)
 
-    console.log(round)
-
-
-
     const renderItem = ( item:any) => (
         <HistoryListComponent data={item} />
     );
-
 
     const onPress = () =>{
         var randomNumber = (Math.random() > 0.5 ? true : false)
@@ -44,13 +39,35 @@ const CoinScreen = () => {
 
             <Text style={[styles.titleWelcome]}>¡¡Holi indeciso!!</Text>
 
-            <View style={styles.historyView}>
-                {historyStateCoin.length > 0 ? 
+            <View style={styles.historyWidth}>
+                <View style={styles.statistic}>
+                    <Text >Porcentaje cara</Text>
+                    <Text >Porcentaje cara</Text>
 
-                    <FlatList style={styles.new} data={historyStateCoin} renderItem={renderItem} refreshing={false} />
-                : 
-                    <></>
-                }            
+
+                    <Text >Porcentaje cara</Text>
+                    <Text >Porcentaje cara</Text>
+                </View>
+
+                <View style={styles.historyHeight}>
+
+                    {historyStateCoin.length > 0 ? 
+
+                        <FlatList style={styles.new} data={historyStateCoin} renderItem={renderItem} refreshing={false} />
+                    : 
+                        <></>
+                    }         
+
+                </View>
+
+                <View style={styles.statistic}>
+                    <Text >Porcentaje cara</Text>
+                    <Text >Porcentaje cara</Text>
+                    
+                    <Text >Porcentaje cara</Text>
+                    <Text >Porcentaje cara</Text>
+                </View>  
+
             </View>
 
             <View style={styles.buttonAction}>
@@ -83,7 +100,6 @@ const CoinScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex:1,
-
     },
 
     titleWelcome: {
@@ -94,16 +110,29 @@ const styles = StyleSheet.create({
     },
 
     mainView: {      
-        flex:3,    
+        flex:2,    
         justifyContent: "center",
         alignItems:"center",
         backgroundColor:"red"
     },
     
-    historyView: {
+    historyWidth: {
         flex:3,
         backgroundColor: "red",
+        alignItems:"center",  
+        flexDirection:"row"    
+    },
+    
+    historyHeight: {
+        flex:1,
+        backgroundColor: "red",
         alignItems:"center",      
+    },
+
+    statistic:{
+
+        alignSelf:"flex-start",
+        top:50
     },
 
     new:{
