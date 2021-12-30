@@ -2,73 +2,79 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, FlatList} from 'react-native';
 import LaunchButton from '../components/LaunchButton';
 // import imagenCara from "./images/DogecoinCara";
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import HistoryListComponent from '../components/historyListComponent';
 // import historyList from "./components/historyList";
 
-
+interface stateCoin {
+    coinFace: boolean;
+    throwingRound: number;
+}
 
 const CoinScreen = () => {
 
-    const [stateCoin, setstateCoin] = useState<boolean>(true);
-    const [history, setHistory] = useState<boolean[]>([])
+    const [historyStateCoin, setHistoryStateCoin] = useState<stateCoin[]>([])
+    const round = useRef<number>(1)
 
-    const showCoin = useRef<boolean>(false)
+    console.log(round)
 
-    // console.log(history)
+
 
     const renderItem = ( item:any) => (
-        <HistoryListComponent title={item} />
+        <HistoryListComponent data={item} />
     );
 
 
     const onPress = () =>{
         var randomNumber = (Math.random() > 0.5 ? true : false)
-        try{
-            showCoin.current = true }
-        finally{
-            setstateCoin(randomNumber)
-            setHistory([...history, randomNumber])
-        }
+        const data = [...historyStateCoin, {coinFace: randomNumber, throwingRound: round.current++}];
+        
+        setHistoryStateCoin(data)
     }
+
+    useEffect(()=>{
+
+        
+
+    },[historyStateCoin])
 
     return (
 
         <View style={styles.container}>
 
-            <View style={styles.headerView}>
-                <Text style={[styles.titleWelcome, styles.mainView]}>¡¡Holi indeciso!!</Text>
+            <Text style={[styles.titleWelcome]}>¡¡Holi indeciso!!</Text>
 
-                {/* {renderItem(true, "hola")} */}
+            <View style={styles.historyView}>
+                {historyStateCoin.length > 0 ? 
 
-                <FlatList data={history} renderItem={renderItem} style={styles.historyView}/>
+                    <FlatList style={styles.new} data={historyStateCoin} renderItem={renderItem} refreshing={false} />
+                : 
+                    <></>
+                }            
+            </View>
 
-                {/* {showCoin.current ? 
-                            <FlatList data={history} renderItem={result=>{<Item title={result}/>}} keyExtractor={item => item}/>
+            <View style={styles.buttonAction}>
 
-                        : 
-                            <>
-                            </> 
-                }   */}
-
+                <LaunchButton text="Lanzar moneda" onPress={onPress}/>
 
             </View>
 
-            <View style={styles.mainView}>
-                <LaunchButton text="Lanzar moneda" onPress={onPress}/>
 
-                    {
-                        showCoin.current ? 
-                            <>
-                                <Image style={styles.tinyLogo} source={stateCoin ? require('../images/DogecoinCara.png') : require('../images/DogecoinSello.png')}  /> 
-                                <Text>
-                                    {stateCoin == true ? "Cara" : "Sello"}
-                                </Text>
-                            </>
-                        : 
-                            <>
-                            </> 
-                    }
+
+            <View style={styles.mainView}>
+
+                {
+                    historyStateCoin.length > 0 ? 
+                        <>
+                            <Image style={styles.tinyLogo} source={historyStateCoin[round.current-2].coinFace ? require('../images/DogecoinCara.png') : require('../images/DogecoinSello.png')}  /> 
+                            <Text>
+                                {historyStateCoin[round.current-2].coinFace == true ? "Cara" : "Sello"}
+                            </Text>
+                        </>
+                    : 
+                        <>
+                        </> 
+                }
             </View>
         </View>
     )
@@ -77,56 +83,44 @@ const CoinScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        // justifyContent: "center"
-        // alignContent:"center"
-    },
-
-    headerView:{
-
-        flex:1,
-        backgroundColor: "red"
-
-    },
-
-    mainView: {
-
-        flex:3,
-        // position:"relative"
-
-        // justifyContent: "center"
-
-    },
-
-    main:{
-
-
 
     },
 
     titleWelcome: {
-        fontSize: 25,
-        flexDirection:"column",
-        // alignSelf: "center",
-        // top: -50
-        // justifyContent:"center",
+        flex: 1,
+        fontSize: 35,
+        alignSelf: "center",
+ 
     },
 
-    historyView: {
-        // fontSize: 25,
-        // alignSelf: "center",
-        top: 100,
-        // justifyContent:"center",
-        // alignContent:"center"
+    mainView: {      
+        flex:3,    
+        justifyContent: "center",
+        alignItems:"center",
+        backgroundColor:"red"
     },
-
     
+    historyView: {
+        flex:3,
+        backgroundColor: "red",
+        alignItems:"center",      
+    },
 
+    new:{
+        borderColor:"green",
+        borderWidth:5, 
+        marginVertical: 10
+    },
+
+    buttonAction:{
+        backgroundColor:"blue",
+        flex:1,
+        justifyContent:"center"
+    },
+    
     tinyLogo: {
-        // position: "absolute",
         width: 100,
         height: 100,
-        // alignSelf:"center",
-        // bottom: 50
     }
 })
 

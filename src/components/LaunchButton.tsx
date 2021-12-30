@@ -57,9 +57,12 @@ const LaunchButton = ({text, onPress}:props) => {
 const styles = StyleSheet.create({
 
     fabLocation:{
-        position: "relative",
-        top:60,
-        alignSelf:"center"
+        // position: "relative",
+        // top:60,
+        alignSelf:"center", 
+        // justifyContent:"center"
+        // alignContent:"center"
+        // alignItems:"center"
     },
 
     fab: {
