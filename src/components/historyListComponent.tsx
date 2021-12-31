@@ -1,10 +1,22 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native';
+import {StateCoin} from '../screens/CoinScreen'
 
 // todo: asignar interface a data
-const historyListComponent = ({data}:any) => {
 
-    // console.log(data.item)
+interface ListRenderItemInfo{
+    data: Item;
+}
+
+type Item = {
+    index: number;
+    item: StateCoin;
+    //nunca supe cual era el type de esta variable "separators"
+    separators: any;
+}
+
+const HistoryListComponent = ({data}:ListRenderItemInfo) => {
+
     return (
         <View style={styles.item}>
             <Text style={styles.textStyle}>{`${data.item.throwingRound}`}</Text>
@@ -54,4 +66,4 @@ textStyleIndex:{
     },
 })
 
-export default historyListComponent
+export default HistoryListComponent

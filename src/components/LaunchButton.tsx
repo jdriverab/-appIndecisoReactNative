@@ -29,6 +29,21 @@ const LaunchButton = ({text, onPress}:props) => {
 
     const android = () => {
 
+        // var timeOut = false
+
+        // const alo = () =>{
+        //     // if(!timeOut){
+        //     //     timeOut = true
+        //     //     setTimeout(()=>{
+        //     //         timeOut = false, 
+        //     //     },500);
+        //     // }
+        //     onPress 
+
+
+        // }
+
+
         return(
 
             <View style={styles.fabLocation}>
@@ -90,4 +105,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default LaunchButton
+export default LaunchButton;

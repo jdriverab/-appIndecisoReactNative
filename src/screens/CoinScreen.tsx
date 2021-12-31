@@ -3,77 +3,78 @@ import { View, Text, StyleSheet, Image, FlatList} from 'react-native';
 import LaunchButton from '../components/LaunchButton';
 // import imagenCara from "./images/DogecoinCara";
 import { useState, useRef, useEffect } from 'react';
-import HistoryListComponent from '../components/historyListComponent';
+import HistoryListComponent from '../components/HistoryListComponent';
 // import historyList from "./components/historyList";
+import StatisticComponent from '../components/StatisticComponent';
 
-interface stateCoin {
+export interface StateCoin {
     coinFace: boolean;
     throwingRound: number;
 }
 
 const CoinScreen = () => {
 
-    const [historyStateCoin, setHistoryStateCoin] = useState<stateCoin[]>([])
+    const [historyStateCoin, setHistoryStateCoin] = useState<StateCoin[]>([])
     const round = useRef<number>(1)
+    const historyListView = useRef<FlatList<any>>(null)
 
-    const renderItem = ( item:any) => (
-        <HistoryListComponent data={item} />
-    );
+    // const buttonActive = useRef<boolean>(false)
+
+    // console.log(historyStateCoin)
+
+    // const renderItem = ( item:any) => (
+    //     <HistoryListComponent data={item} />
+    // );
 
     const onPress = () =>{
-        var randomNumber = (Math.random() > 0.5 ? true : false)
-        const data = [...historyStateCoin, {coinFace: randomNumber, throwingRound: round.current++}];
-        
-        setHistoryStateCoin(data)
+            var randomNumber = (Math.random() > 0.5 ? true : false)
+            const data = [...historyStateCoin, {coinFace: randomNumber, throwingRound: round.current++}];
+            setHistoryStateCoin(data)
+            historyListView?.current?.scrollToEnd()
     }
 
-    useEffect(()=>{
+    const restart = () => {
+        round.current = 1
+        setHistoryStateCoin([])
+    }
+
+    // useEffect(()=>{
 
         
 
-    },[historyStateCoin])
+    // },[historyStateCoin])
 
     return (
 
         <View style={styles.container}>
 
-            <Text style={[styles.titleWelcome]}>¡¡Holi indeciso!!</Text>
+            <Text style={[styles.titleWelcome]}>¡¡indeciso!!</Text>
 
             <View style={styles.historyWidth}>
-                <View style={styles.statistic}>
-                    <Text >Porcentaje cara</Text>
-                    <Text >Porcentaje cara</Text>
 
-
-                    <Text >Porcentaje cara</Text>
-                    <Text >Porcentaje cara</Text>
-                </View>
+                <StatisticComponent data={historyStateCoin.map(res => res.coinFace)} type={"Cara"}/>
+                
 
                 <View style={styles.historyHeight}>
 
                     {historyStateCoin.length > 0 ? 
 
-                        <FlatList style={styles.new} data={historyStateCoin} renderItem={renderItem} refreshing={false} />
+                        <FlatList ref={historyListView} style={styles.new} data={historyStateCoin} renderItem={(res)=> <HistoryListComponent data={res} />} />
                     : 
                         <></>
                     }         
 
                 </View>
 
-                <View style={styles.statistic}>
-                    <Text >Porcentaje cara</Text>
-                    <Text >Porcentaje cara</Text>
-                    
-                    <Text >Porcentaje cara</Text>
-                    <Text >Porcentaje cara</Text>
-                </View>  
+                <StatisticComponent data={historyStateCoin.map(res => res.coinFace)} type={"Sello"}/>
 
             </View>
 
             <View style={styles.buttonAction}>
 
                 <LaunchButton text="Lanzar moneda" onPress={onPress}/>
-
+                <LaunchButton text="Lanzar moneda" onPress={restart}/>
+                        
             </View>
 
 
@@ -129,11 +130,6 @@ const styles = StyleSheet.create({
         alignItems:"center",      
     },
 
-    statistic:{
-
-        alignSelf:"flex-start",
-        top:50
-    },
 
     new:{
         borderColor:"green",
@@ -144,7 +140,8 @@ const styles = StyleSheet.create({
     buttonAction:{
         backgroundColor:"blue",
         flex:1,
-        justifyContent:"center"
+        justifyContent:"center",
+        flexDirection:"row"
     },
     
     tinyLogo: {
