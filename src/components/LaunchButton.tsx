@@ -1,13 +1,15 @@
 import React from 'react';
-import { Text, TouchableOpacity, View, Platform, StyleSheet, TouchableNativeFeedback} from 'react-native';
+import { Text, TouchableOpacity, View, Platform, Image, StyleSheet, TouchableNativeFeedback} from 'react-native';
+// import refreshIcon from "../images/RefreshIcon.png";
 
 
 interface props {
-    text:string
-    onPress: () => void
+    text:string;
+    onPress: () => void;
+    size?: "small" | "large";
 }
 
-const LaunchButton = ({text, onPress}:props) => {
+const LaunchButton = ({text, onPress, size}:props) => {
 
     const ios = () =>{
 
@@ -16,11 +18,16 @@ const LaunchButton = ({text, onPress}:props) => {
             <TouchableOpacity onPress={onPress} activeOpacity={0.5} 
             style={styles.fabLocation}>
 
-                <View style={styles.fab
-                }>
-                    <Text style={styles.fabText
-                    }>{text}
-                    </Text>
+                <View style={size == "large" ? styles.fabLarge : styles.fabSmall}>
+
+                    {size == "large" ? 
+
+                        <Text style={styles.fabTextLarge}>{text}</Text>
+                        :
+                        <Image style={styles.tinyLogo} source={require('../images/RefreshIcon.png')}/> 
+                            
+                    }
+
                 </View>
 
             </TouchableOpacity>
@@ -29,33 +36,23 @@ const LaunchButton = ({text, onPress}:props) => {
 
     const android = () => {
 
-        // var timeOut = false
-
-        // const alo = () =>{
-        //     // if(!timeOut){
-        //     //     timeOut = true
-        //     //     setTimeout(()=>{
-        //     //         timeOut = false, 
-        //     //     },500);
-        //     // }
-        //     onPress 
-
-
-        // }
-
-
         return(
 
             <View style={styles.fabLocation}>
 
                 <TouchableNativeFeedback onPress={onPress} 
-                background={TouchableNativeFeedback.Ripple("#28425B",false, 90)}>
+                background={TouchableNativeFeedback.Ripple("#28425B",false, size == "large" ? 90 : 30)}>
 
-                    <View style={styles.fab
-                    }>
-                        <Text style={styles.fabText
-                        }>{text}
-                        </Text>
+                    <View style={size == "large" ? styles.fabLarge : styles.fabSmall}>
+
+                        {size == "large" ?
+
+                            <Text style={styles.fabTextLarge}>{text}</Text>
+                            :
+                            <Image style={styles.tinyLogo} source={require('../images/RefreshIcon.png')} />
+
+                        }
+
                     </View>
 
                 </TouchableNativeFeedback>
@@ -80,7 +77,7 @@ const styles = StyleSheet.create({
         // alignItems:"center"
     },
 
-    fab: {
+    fabLarge: {
         backgroundColor: "#5856d6",
         width: 180,
         height: 40, 
@@ -97,10 +94,37 @@ const styles = StyleSheet.create({
         elevation: 10,
     },
 
-    fabText: {
+    fabSmall: {
+        backgroundColor: "#5856d6",
+        width: 50,
+        height: 50, 
+        borderRadius:100,
+        justifyContent:"center",
+        alignItems:"center",
+
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+
+        elevation: 10,
+
+        
+
+    },
+
+    fabTextLarge: {
         color: "white",
         fontSize: 20,
         fontWeight:"bold",
+    },
+
+    tinyLogo: {
+        width: 30,
+        height: 30,
     }
 })
 

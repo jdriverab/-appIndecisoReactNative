@@ -28,7 +28,8 @@ const HistoryListComponent = ({data}:ListRenderItemInfo) => {
 const styles = StyleSheet.create({
 
     item:{
-        backgroundColor: '#f9c2ff',
+        // flex:1,
+        backgroundColor: 'pink',
     // padding: 20,
     // marginVertical: 8,
     // marginHorizontal: 16,
@@ -41,6 +42,8 @@ const styles = StyleSheet.create({
     // alignItems:"center"
     // alignContent:"center",
     // position:"absolute",
+    // lineHeight: "30"
+    
     
 
     
@@ -52,7 +55,7 @@ const styles = StyleSheet.create({
 
 textStyle:{
     fontSize: 20,
-    width:40,
+    width:30,
     // justifyContent:"center"
     // textAlign:"center"
     // alignContent:"center"
@@ -61,7 +64,7 @@ textStyle:{
 
 textStyleIndex:{
         marginLeft:10,
-        width:70
+        width:60
 
     },
 })

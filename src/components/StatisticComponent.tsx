@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 
     number: {
 
-        fontSize:55,
+        fontSize:40,
         textAlign:"center",
         fontWeight: "bold",
         fontFamily: "sans-serif"

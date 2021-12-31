@@ -18,14 +18,6 @@ const CoinScreen = () => {
     const round = useRef<number>(1)
     const historyListView = useRef<FlatList<any>>(null)
 
-    // const buttonActive = useRef<boolean>(false)
-
-    // console.log(historyStateCoin)
-
-    // const renderItem = ( item:any) => (
-    //     <HistoryListComponent data={item} />
-    // );
-
     const onPress = () =>{
             var randomNumber = (Math.random() > 0.5 ? true : false)
             const data = [...historyStateCoin, {coinFace: randomNumber, throwingRound: round.current++}];
@@ -52,14 +44,14 @@ const CoinScreen = () => {
 
             <View style={styles.historyWidth}>
 
-                <StatisticComponent data={historyStateCoin.map(res => res.coinFace)} type={"Cara"}/>
+                <StatisticComponent  data={historyStateCoin.map(res => res.coinFace)} type={"Cara"}/>
                 
 
                 <View style={styles.historyHeight}>
 
                     {historyStateCoin.length > 0 ? 
 
-                        <FlatList ref={historyListView} style={styles.new} data={historyStateCoin} renderItem={(res)=> <HistoryListComponent data={res} />} />
+                        <FlatList ref={historyListView} style={styles.flatList} data={historyStateCoin} renderItem={(res)=> <HistoryListComponent data={res} />} />
                     : 
                         <></>
                     }         
@@ -72,8 +64,8 @@ const CoinScreen = () => {
 
             <View style={styles.buttonAction}>
 
-                <LaunchButton text="Lanzar moneda" onPress={onPress}/>
-                <LaunchButton text="Lanzar moneda" onPress={restart}/>
+                <LaunchButton text="Lanzar moneda" onPress={onPress} size={"large"}/>
+                <LaunchButton text="Lanzar moneda" onPress={restart} size={"small"}/>
                         
             </View>
 
@@ -128,20 +120,24 @@ const styles = StyleSheet.create({
         flex:1,
         backgroundColor: "red",
         alignItems:"center",      
+        borderWidth:5,
+        // margin:0,
+        // padding:0 
     },
 
 
-    new:{
-        borderColor:"green",
-        borderWidth:5, 
-        marginVertical: 10
+    flatList:{
+        marginVertical: 10,
+        borderColor:"Black",
+        // backgroundColor:"pink"
     },
 
     buttonAction:{
         backgroundColor:"blue",
         flex:1,
-        justifyContent:"center",
+        justifyContent:"space-evenly",
         flexDirection:"row"
+
     },
     
     tinyLogo: {
