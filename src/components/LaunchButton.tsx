@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, TouchableOpacity, View, Platform, Image, StyleSheet, TouchableNativeFeedback} from 'react-native';
-// import refreshIcon from "../images/RefreshIcon.png";
 
 
 interface props {
@@ -69,16 +68,11 @@ const LaunchButton = ({text, onPress, size}:props) => {
 const styles = StyleSheet.create({
 
     fabLocation:{
-        // position: "relative",
-        // top:60,
         alignSelf:"center", 
-        // justifyContent:"center"
-        // alignContent:"center"
-        // alignItems:"center"
     },
 
     fabLarge: {
-        backgroundColor: "#5856d6",
+        backgroundColor: "#BE85F3",
         width: 180,
         height: 40, 
         borderRadius:5,
@@ -95,13 +89,12 @@ const styles = StyleSheet.create({
     },
 
     fabSmall: {
-        backgroundColor: "#5856d6",
+        backgroundColor: "#BE85F3",
         width: 50,
         height: 50, 
         borderRadius:100,
         justifyContent:"center",
         alignItems:"center",
-
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -109,15 +102,11 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.34,
         shadowRadius: 6.27,
-
         elevation: 10,
-
-        
-
     },
 
     fabTextLarge: {
-        color: "white",
+        color: "black",
         fontSize: 20,
         fontWeight:"bold",
     },

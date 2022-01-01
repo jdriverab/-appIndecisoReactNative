@@ -30,17 +30,11 @@ const CoinScreen = () => {
         setHistoryStateCoin([])
     }
 
-    // useEffect(()=>{
-
-        
-
-    // },[historyStateCoin])
-
     return (
 
         <View style={styles.container}>
 
-            <Text style={[styles.titleWelcome]}>¡¡indeciso!!</Text>
+            <Text style={styles.titleWelcome}>Toma tu decisión</Text>
 
             <View style={styles.historyWidth}>
 
@@ -65,7 +59,7 @@ const CoinScreen = () => {
             <View style={styles.buttonAction}>
 
                 <LaunchButton text="Lanzar moneda" onPress={onPress} size={"large"}/>
-                <LaunchButton text="Lanzar moneda" onPress={restart} size={"small"}/>
+                <LaunchButton text="" onPress={restart} size={"small"}/>
                         
             </View>
 
@@ -76,8 +70,8 @@ const CoinScreen = () => {
                 {
                     historyStateCoin.length > 0 ? 
                         <>
-                            <Image style={styles.tinyLogo} source={historyStateCoin[round.current-2].coinFace ? require('../images/DogecoinCara.png') : require('../images/DogecoinSello.png')}  /> 
-                            <Text>
+                            <Image style={styles.tinyLogo} source={historyStateCoin[round.current-2].coinFace ? require('../images/LeTrueDogecoinCara.png') : require('../images/LeTrueDogecoinSello.png')}  /> 
+                            <Text style={styles.anyText}>
                                 {historyStateCoin[round.current-2].coinFace == true ? "Cara" : "Sello"}
                             </Text>
                         </>
@@ -93,12 +87,16 @@ const CoinScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex:1,
+        backgroundColor: "#FBDFFC"
     },
 
     titleWelcome: {
         flex: 1,
-        fontSize: 35,
+        fontSize: 45,
         alignSelf: "center",
+        fontWeight: "bold",
+        fontFamily: "sans-serif"
+
  
     },
 
@@ -106,43 +104,47 @@ const styles = StyleSheet.create({
         flex:2,    
         justifyContent: "center",
         alignItems:"center",
-        backgroundColor:"red"
     },
     
     historyWidth: {
         flex:3,
-        backgroundColor: "red",
         alignItems:"center",  
         flexDirection:"row"    
     },
     
     historyHeight: {
         flex:1,
-        backgroundColor: "red",
         alignItems:"center",      
-        borderWidth:5,
-        // margin:0,
-        // padding:0 
+        borderWidth:2,
+        height:"100%"
     },
 
 
     flatList:{
         marginVertical: 10,
         borderColor:"Black",
-        // backgroundColor:"pink"
     },
 
     buttonAction:{
-        backgroundColor:"blue",
+        backgroundColor:"#FDBEFF",
         flex:1,
         justifyContent:"space-evenly",
-        flexDirection:"row"
+        flexDirection:"row",
+        borderRadius:50,
+
+    },
+
+    anyText:{
+        fontFamily: "sans-serif",
+        fontSize: 20,
+        position: 'absolute',
+        bottom: 0
 
     },
     
     tinyLogo: {
-        width: 100,
-        height: 100,
+        width: 160,
+        height: 160,
     }
 })
 

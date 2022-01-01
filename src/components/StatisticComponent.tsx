@@ -10,17 +10,11 @@ interface StatisticData {
 const StatisticComponent = ({data, type}:StatisticData) => {
 
     const {probabilityForFace} = useProbability();
-
     const probFace = probabilityForFace(data)
 
-    // console.log(alo)
-    // console.log(data)
-
-
-    console.log(probFace)
     return (
         <View style={styles.statistic}>
-            <Text style={styles.text}>Porcentaje {`${type}`}</Text>
+            <Text style={styles.text}># {`${type}`}</Text>
             <Text style={styles.number}>{
 
                 probFace !== null ? 
@@ -51,7 +45,7 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        fontSize:15,
+        fontSize:35,
         textAlign:"center",
         fontWeight: "bold",
         fontFamily: "sans-serif"
