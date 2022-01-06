@@ -26,20 +26,30 @@ const HistoryListComponent = ({data}:ListRenderItemInfo) => {
 const styles = StyleSheet.create({
 
     item:{
-        flex:1,
         flexDirection:"row",
         fontFamily: "sans-serif",
-        height:37,
+        minHeight: 31,
+        minWidth:100,
+        backgroundColor:'#FDBEFF',
+        borderRadius: 50,
+        marginBottom:2,
+        
     },
-
+    
     textStyle:{
-        fontSize: 20,
-        width:30,
+        fontSize: 16,
         fontFamily: "sans-serif",
+        width:40,
+        textAlign:"center", 
+        alignSelf:"center"
     },
 
     textStyleIndex:{
-        width:60
+        width:"auto",
+        minWidth:70,
+        textAlign:"left", 
+        fontSize: 18,
+        fontWeight: "bold",
     },
 })
 

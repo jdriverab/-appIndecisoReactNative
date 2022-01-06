@@ -9,7 +9,7 @@
  */
 
 import React from 'react';
-import { StyleSheet , SafeAreaView, StatusBar} from 'react-native';
+import { StyleSheet , SafeAreaView} from 'react-native';
 import CoinScreen from './src/screens/CoinScreen';
 
 const App = () => {
@@ -27,7 +27,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    // marginTop: StatusBar.currentHeight || 0,
   }
 })
 

@@ -8,7 +8,7 @@ interface props {
     size?: "small" | "large";
 }
 
-const LaunchButton = ({text, onPress, size}:props) => {
+const LaunchButtonComponent = ({text, onPress, size}:props) => {
 
     const ios = () =>{
 
@@ -17,7 +17,7 @@ const LaunchButton = ({text, onPress, size}:props) => {
             <TouchableOpacity onPress={onPress} activeOpacity={0.5} 
             style={styles.fabLocation}>
 
-                <View style={size == "large" ? styles.fabLarge : styles.fabSmall}>
+                <View style={[styles.fab, size == "large" ? styles.fabLarge : styles.fabSmall]}>
 
                     {size == "large" ? 
 
@@ -40,9 +40,9 @@ const LaunchButton = ({text, onPress, size}:props) => {
             <View style={styles.fabLocation}>
 
                 <TouchableNativeFeedback onPress={onPress} 
-                background={TouchableNativeFeedback.Ripple("#28425B",false, size == "large" ? 90 : 30)}>
+                background={TouchableNativeFeedback.Ripple("#28425B",false, size == "large" ? 90 : 25)}>
 
-                    <View style={size == "large" ? styles.fabLarge : styles.fabSmall}>
+                    <View style={[ styles.fab, size == "large" ? styles.fabLarge : styles.fabSmall]}>
 
                         {size == "large" ?
 
@@ -71,43 +71,41 @@ const styles = StyleSheet.create({
         alignSelf:"center", 
     },
 
-    fabLarge: {
+    fab:{
         backgroundColor: "#BE85F3",
-        width: 180,
-        height: 40, 
-        borderRadius:5,
         justifyContent:"center",
         alignItems:"center",
         shadowColor: "#000",
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
+        borderWidth:1,
+    },
+
+    fabLarge: {
+        width: 180,
+        height: 40, 
+        borderRadius:5,
         shadowOffset: {
             width: 130,
             height: 60,
         },
-        shadowOpacity: 0.34,
-        shadowRadius: 6.27,
-        elevation: 10,
     },
 
     fabSmall: {
-        backgroundColor: "#BE85F3",
         width: 50,
         height: 50, 
         borderRadius:100,
-        justifyContent:"center",
-        alignItems:"center",
-        shadowColor: "#000",
         shadowOffset: {
             width: 0,
             height: 5,
         },
-        shadowOpacity: 0.34,
-        shadowRadius: 6.27,
-        elevation: 10,
     },
 
     fabTextLarge: {
         color: "black",
-        fontSize: 20,
+        fontSize: 24,
+        fontFamily: "sans-serif", 
         fontWeight:"bold",
     },
 
@@ -118,4 +116,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default LaunchButton;
+export default LaunchButtonComponent;
