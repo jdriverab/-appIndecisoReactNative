@@ -17,8 +17,22 @@ const useProbability = () => {
         }
     }
 
+    /**
+     * Funcion regresa en string si es cara o sello
+     * @param {number} prob 
+     * @return {string}
+     */
+     const FaceOrSeal = (prob:number):string => {
+        if(prob > 50){
+            return "Cara"
+        } else {
+            return "Sello"
+        }
+    }
+
     return {
         probabilityForFace,
+        FaceOrSeal
     }
 }
 

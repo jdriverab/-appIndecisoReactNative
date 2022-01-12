@@ -50,36 +50,33 @@ const styles = StyleSheet.create({
 
     main:{
         flex:1,
-        marginBottom:11,
-        aspectRatio: 1,
+        alignItems:"center"
     },
-
+    
     statistic:{
-        minHeight: 100,
-        minWidth: 130,
+        minWidth: 120,
         borderColor:"black",
         borderWidth: 2,
         borderRadius:20,
-        aspectRatio: 1,
         backgroundColor:'#FDBEFF',
+        justifyContent:"center",
+        alignItems:"center"
     },
 
     text: {
         fontSize: 26,
         fontFamily: "sans-serif", 
-        textAlign:"center",
         fontWeight: "bold",
     },
 
     littleText:{
         fontSize: 14,
         fontFamily: "sans-serif",
+        fontWeight: "bold",
     },
 
     number: {
-        paddingTop:5,
         fontSize:34,
-        textAlign:"center",
         fontWeight: "bold",
         fontFamily: "sans-serif",
         color:"red",

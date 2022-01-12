@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
         backgroundColor:'#FDBEFF',
         borderRadius: 50,
         marginBottom:2,
-        
     },
+
     
     textStyle:{
         fontSize: 16,
@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
     },
 
     textStyleIndex:{
-        width:"auto",
         minWidth:70,
         textAlign:"left", 
         fontSize: 18,

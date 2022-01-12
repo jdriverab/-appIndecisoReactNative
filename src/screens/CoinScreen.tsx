@@ -1,17 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, FlatList, ImageBackground} from 'react-native';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef} from 'react';
 import LaunchButtonComponent from '../components/LaunchButtonComponent';
 import HistoryListComponent from '../components/HistoryListComponent';
 import StatisticComponent from '../components/StatisticComponent';
 import useProbability from '../hooks/useProbability';
 
-
 export interface StateCoin {
     coinFace: boolean;
     throwingRound: number;
 }
-
 
 const CoinScreen = () => {
 
@@ -19,7 +17,9 @@ const CoinScreen = () => {
     const round = useRef<number>(1)
     const historyListView = useRef<FlatList<any>>(null)
     const buttonAvailible = useRef<boolean>(true)
-    const {probabilityForFace} = useProbability();
+    const {probabilityForFace, FaceOrSeal} = useProbability();
+    const limit = useRef<number>(30)
+    const lastResultForFace = useRef<number>(0)
 
     /**
      * Funcion realiza lanzamiento y setea el resultado obtenido agregandolo al array del estado "historyStateCoin"
@@ -27,16 +27,24 @@ const CoinScreen = () => {
      */
     const onPress = ():void =>{
 
-        if(buttonAvailible.current || historyStateCoin.length <= 30){
+        if(buttonAvailible.current && historyStateCoin.length <= limit.current){
 
             switchAvailibilityButton(buttonAvailible.current);
             var randomNumber = (Math.random() > 0.5 ? true : false);
             const data = [...historyStateCoin, {coinFace: randomNumber, throwingRound: round.current++}];
             setHistoryStateCoin(data);
             switchAvailibilityButton(buttonAvailible.current)
-        } 
+        }
+
+        if(historyStateCoin.length = limit.current){
+            const prob = probabilityForFace(historyStateCoin.map(res => res.coinFace))
+            if(prob){
+                lastResultForFace.current = prob
+            }
+            
+        }
+    
         historyListView?.current?.scrollToEnd();
-        
     }
 
     /**
@@ -58,11 +66,13 @@ const CoinScreen = () => {
         setHistoryStateCoin([])
     }
 
+    
+
     return (
 
         <View style={styles.container}>
 
-            <ImageBackground source={require('../images/memeBackground.png')} style={styles.container}>
+            {/* <ImageBackground source={require('../images/memeBackground.png')} style={styles.container}> */}
 
 
                 <Text style={styles.titleWelcome}>Toma tu decisión</Text>
@@ -102,31 +112,30 @@ const CoinScreen = () => {
                     {
                         historyStateCoin.length > 0 ?
 
-                            historyStateCoin.length == 50 ?
-                                <>
+                            historyStateCoin.length > limit.current ?
+                                <View style={styles.bottomResult}>
                                     <Text style={styles.bottomText}>
-                                        ¡¡Wow!! 30 lanzamientos, es hora de tomar una decision :3 {historyStateCoin[round.current - 2].coinFace == true ? "Cara" : "Sello"}
+                                        ¡¡Wow!! 50 lanzamientos, es hora de tomar una decision :3 
                                     </Text>
                                     <Text style={styles.bottomText}>
-                                        El ganador fue {probabilityForFace(historyStateCoin.map(res => res.coinFace))}
+                                        El ganador fue {lastResultForFace.current > 50 ? "Cara" : "Sello"} con {lastResultForFace.current}%
                                     </Text>
-                                </>
+                                </View>
                                 :
-                                <>
+                                <View style={styles.bottomResult}>
                                     <Image style={styles.tinyLogo} source={historyStateCoin[round.current - 2].coinFace ? require('../images/LeTrueDogecoinCara.png') : require('../images/LeTrueDogecoinSello.png')} />
                                     <Text style={styles.bottomText}>
                                         {historyStateCoin[round.current - 2].coinFace == true ? "Cara" : "Sello"}
                                     </Text>
-                                </>
+                                </View>
 
                             :
-                            <>
+                            <View style={styles.bottomResult}>
                                 <Image style={styles.tinyLogo} source={require('../images/LeDogeStart.png')} />
-
-                            </>
+                            </View>
                     }
                 </View>
-            </ImageBackground>
+            {/* </ImageBackground> */}
         </View>
     )
 }
@@ -142,40 +151,44 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         backgroundColor:"#BE85F3",
         marginBottom:11,
-        paddingLeft:5,
+        paddingLeft:"3%",
     },
     
     historyView: {
-        flex:2,
+        flex:5,
         alignItems:"center",  
-        flexDirection:"row",
+        flexDirection:"row",        
+        backgroundColor:"#BE85F3",
     },
     
     mainView: {      
-        flex:3,    
-        justifyContent: "center",
+        flex:7,    
+        marginTop:"1%",
         alignItems:"center",
+        backgroundColor:"red",
     },
     
     statisticList:{
-        flex:1,
-        alignItems:"center",    
+        flex:7,     
+        backgroundColor:"green",
+
     },
     
     historyList: {
-        flex:1.5,
-        alignItems:"center",      
+        flex:8,   
+        borderColor:"Black",
+        borderWidth:1,
+        backgroundColor:"pink",
     },
     
     flatList:{
-        marginVertical: 10,
-        borderColor:"Black",
-        width:'80%',
+        width:'90%',
     },
 
     actionButton:{
+        flex:1,
         backgroundColor:"#FDBEFF",
-        height: 85,
+        minHeight: 70,
         width: "85%",
         justifyContent:"space-evenly",
         flexDirection:"row",
@@ -183,20 +196,23 @@ const styles = StyleSheet.create({
         borderColor:"black",
         borderWidth: 2,
     },
+
+    bottomResult:{
+        flex:35,
+        justifyContent:"center",
+        marginHorizontal:"3%",
+    },
     
     tinyLogo: {
-        width: "60%",
-        flex:0.8,
+        flex:1,
         justifyContent:"center",
-        alignSelf:"center", 
     },
 
     bottomText:{
         fontSize: 16,
-        fontFamily: "sans-serif", 
-        position: 'absolute',
-        bottom: 0
-
+        fontFamily: "sans-serif",
+        fontWeight: "bold",
+        textAlign:"center",
     },
     
 })
