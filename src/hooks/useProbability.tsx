@@ -4,34 +4,31 @@ const useProbability = () => {
 
     /**
      * Funcion retorna el % de "cara" que se tiene hasta el momento
-     * 
-     * @return {boolean} 
+     * @param {booeal[]} array Array con historia de lanzamientos
+     * @param {boolean} face Lado de lanzamiento "Cara" o "Sello"
+     * @return {number} 
      */
-    const probabilityForFace = (array:boolean[]= [])=> {
-        
-        const counter = Math.floor(100*(array.filter(res=> res == true).length / array.length))
-        if(counter >= 0){
-            return counter
-        } else{
-            return null
+    const percentagePerFace = (array:boolean[]= [], face:boolean) => {
+        // const ola = Math.floor(100*(array.filter(res=> res == face).length / array.length))
+        // console.log(ola)
+        if (array.length > 0) { 
+            return Number(Math.floor(100*(array.filter(res=> res == face).length / array.length)))
+        } else {
+            return 0
         }
     }
 
     /**
      * Funcion regresa en string si es cara o sello
-     * @param {number} prob 
+     * @param {number} input true para "Cara" - false para "Sello"
      * @return {string}
      */
-     const FaceOrSeal = (prob:number):string => {
-        if(prob > 50){
-            return "Cara"
-        } else {
-            return "Sello"
-        }
+     const FaceOrSeal = (input:boolean):string => {
+        return input ? "Cara" : "Sello"
     }
 
     return {
-        probabilityForFace,
+        percentagePerFace,
         FaceOrSeal
     }
 }

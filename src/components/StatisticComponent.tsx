@@ -1,37 +1,27 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import useProbability from '../hooks/useProbability';
+import { View, Text, StyleSheet} from 'react-native';
 
 interface StatisticData {
     data: boolean[];
-    type: string
+    type: string;
+    percentage: number
 }
 
-const StatisticComponent = ({data, type}:StatisticData) => {
-
-    const {probabilityForFace} = useProbability();
-    const probFace = probabilityForFace(data)
+const StatisticComponent = ({data, type, percentage}:StatisticData) => {
 
     return (
         <View style={styles.main}>
 
             <View style={styles.statistic}>
                 <Text style={styles.text}># {`${type}`}</Text>
-                <Text style={styles.number}>{
-                    
-                    probFace !== null ? 
-                        type == "Cara" ?
-                        
-                        `${probFace}%`            
-                        
-                        :
-                        
-                        `${100 - probFace}%`   
-                    
+                <Text style={styles.number}>
+                    {
+                    data.length > 0 ? 
+                        `${percentage}%` 
                     : 
                         "-"
-                    
-                }</Text>
+                    }
+                </Text>
 
             </View>
 

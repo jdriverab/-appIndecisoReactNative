@@ -11,15 +11,21 @@ export interface StateCoin {
     throwingRound: number;
 }
 
+interface ResultData {
+    type: string;
+    result: number;
+
+}
+
 const CoinScreen = () => {
 
     const [historyStateCoin, setHistoryStateCoin] = useState<StateCoin[]>([])
     const round = useRef<number>(1)
     const historyListView = useRef<FlatList<any>>(null)
     const buttonAvailible = useRef<boolean>(true)
-    const {probabilityForFace, FaceOrSeal} = useProbability();
+    const {percentagePerFace, FaceOrSeal} = useProbability();
     const limit = useRef<number>(30)
-    const lastResultForFace = useRef<number>(0)
+    // const lastResultForFace = useRef<number>(0)
 
     /**
      * Funcion realiza lanzamiento y setea el resultado obtenido agregandolo al array del estado "historyStateCoin"
@@ -27,7 +33,7 @@ const CoinScreen = () => {
      */
     const onPress = ():void =>{
 
-        if(buttonAvailible.current && historyStateCoin.length <= limit.current){
+        if(buttonAvailible.current && historyStateCoin.length < limit.current){
 
             switchAvailibilityButton(buttonAvailible.current);
             var randomNumber = (Math.random() > 0.5 ? true : false);
@@ -36,14 +42,6 @@ const CoinScreen = () => {
             switchAvailibilityButton(buttonAvailible.current)
         }
 
-        if(historyStateCoin.length = limit.current){
-            const prob = probabilityForFace(historyStateCoin.map(res => res.coinFace))
-            if(prob){
-                lastResultForFace.current = prob
-            }
-            
-        }
-    
         historyListView?.current?.scrollToEnd();
     }
 
@@ -53,7 +51,13 @@ const CoinScreen = () => {
      * @return {void}
      */
     const switchAvailibilityButton = (data: boolean):void => {
-        data ? buttonAvailible.current = false : setTimeout(()=> buttonAvailible.current = true, 200)
+        data ? buttonAvailible.current = false : setTimeout(()=> buttonAvailible.current = true, 400)
+    }
+
+    const lastResult = (data:StateCoin[]):ResultData => {
+        const lastResultVar = percentagePerFace(data.map(res => res.coinFace), true)
+
+        return (lastResultVar > 50 ? {type: "Cara", result: lastResultVar} : {type: "Sello", result: 100- lastResultVar})
     }
 
 
@@ -72,7 +76,7 @@ const CoinScreen = () => {
 
         <View style={styles.container}>
 
-            {/* <ImageBackground source={require('../images/memeBackground.png')} style={styles.container}> */}
+            <ImageBackground source={require('../images/memeBackground.png')} style={styles.container}>
 
 
                 <Text style={styles.titleWelcome}>Toma tu decisión</Text>
@@ -81,8 +85,8 @@ const CoinScreen = () => {
 
                     <View style={styles.statisticList}>
 
-                        <StatisticComponent data={historyStateCoin.map(res => res.coinFace)} type={"Cara"} />
-                        <StatisticComponent data={historyStateCoin.map(res => res.coinFace)} type={"Sello"} />
+                        <StatisticComponent data={historyStateCoin.map(res => res.coinFace)} type={"Cara"} percentage={percentagePerFace(historyStateCoin.map(res => res.coinFace), true)}/>
+                        <StatisticComponent data={historyStateCoin.map(res => res.coinFace)} type={"Sello"} percentage={percentagePerFace(historyStateCoin.map(res => res.coinFace), false)}/>
 
                     </View>
 
@@ -112,13 +116,13 @@ const CoinScreen = () => {
                     {
                         historyStateCoin.length > 0 ?
 
-                            historyStateCoin.length > limit.current ?
+                            historyStateCoin.length >= limit.current ?
                                 <View style={styles.bottomResult}>
                                     <Text style={styles.bottomText}>
-                                        ¡¡Wow!! 50 lanzamientos, es hora de tomar una decision :3 
+                                        ¡¡Wow!! 30 lanzamientos, es hora de tomar una decision :3 
                                     </Text>
                                     <Text style={styles.bottomText}>
-                                        El ganador fue {lastResultForFace.current > 50 ? "Cara" : "Sello"} con {lastResultForFace.current}%
+                                        El ganador fue {lastResult(historyStateCoin).type} con {lastResult(historyStateCoin).result}%
                                     </Text>
                                 </View>
                                 :
@@ -135,7 +139,7 @@ const CoinScreen = () => {
                             </View>
                     }
                 </View>
-            {/* </ImageBackground> */}
+            </ImageBackground>
         </View>
     )
 }
@@ -157,28 +161,22 @@ const styles = StyleSheet.create({
     historyView: {
         flex:5,
         alignItems:"center",  
-        flexDirection:"row",        
-        backgroundColor:"#BE85F3",
+        flexDirection:"row",      
     },
     
     mainView: {      
         flex:7,    
         marginTop:"1%",
         alignItems:"center",
-        backgroundColor:"red",
     },
     
     statisticList:{
-        flex:7,     
-        backgroundColor:"green",
-
+        flex:7,
     },
     
     historyList: {
         flex:8,   
-        borderColor:"Black",
-        borderWidth:1,
-        backgroundColor:"pink",
+        // borderColor:"Black",
     },
     
     flatList:{
