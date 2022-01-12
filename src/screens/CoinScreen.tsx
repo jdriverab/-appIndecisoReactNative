@@ -70,8 +70,6 @@ const CoinScreen = () => {
         setHistoryStateCoin([])
     }
 
-    
-
     return (
 
         <View style={styles.container}>

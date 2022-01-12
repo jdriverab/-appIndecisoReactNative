@@ -1,3 +1,4 @@
-rootProject.name = 'appIndecisoReactNative'
+// rootProject.name = 'IndecisoReactNative'
+rootProject.name = 'Indeciso - Lanzar moneda'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
