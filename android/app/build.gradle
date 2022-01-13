@@ -134,8 +134,8 @@ android {
         applicationId "com.appindecisoreactnative"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "a.0.2"
+        versionCode 4
+        versionName "A.0.3"
     }
     splits {
         abi {

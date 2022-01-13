@@ -25,12 +25,12 @@ const StatisticComponent = ({data, type, percentage}:StatisticData) => {
 
             </View>
 
-            {type == "Sello" ? 
+            {/* {type == "Sello" ? 
 
                 <Text style={styles.littleText}>Turno # {data.length}</Text>
                 :
                 <></>
-            }
+            } */}
 
         </View>
     )
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     },
     
     statistic:{
+        flex:1,
         minWidth: 120,
         borderColor:"black",
         borderWidth: 2,
@@ -54,7 +55,8 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        fontSize: 26,
+        flex:1,
+        fontSize: 28,
         fontFamily: "sans-serif", 
         fontWeight: "bold",
     },
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
     },
 
     number: {
-        fontSize:34,
+        fontSize:35,
         fontWeight: "bold",
         fontFamily: "sans-serif",
         color:"red",

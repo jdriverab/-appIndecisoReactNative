@@ -23,7 +23,7 @@ const CoinScreen = () => {
     const round = useRef<number>(1)
     const historyListView = useRef<FlatList<any>>(null)
     const buttonAvailible = useRef<boolean>(true)
-    const {percentagePerFace, FaceOrSeal} = useProbability();
+    const {percentagePerFace} = useProbability();
     const limit = useRef<number>(30)
     // const lastResultForFace = useRef<number>(0)
 
@@ -74,7 +74,7 @@ const CoinScreen = () => {
 
         <View style={styles.container}>
 
-            <ImageBackground source={require('../images/memeBackground.png')} style={styles.container}>
+            {/* <ImageBackground source={require('../images/memeBackground.png')} style={styles.container}> */}
 
 
                 <Text style={styles.titleWelcome}>Toma tu decisión</Text>
@@ -85,7 +85,7 @@ const CoinScreen = () => {
 
                         <StatisticComponent data={historyStateCoin.map(res => res.coinFace)} type={"Cara"} percentage={percentagePerFace(historyStateCoin.map(res => res.coinFace), true)}/>
                         <StatisticComponent data={historyStateCoin.map(res => res.coinFace)} type={"Sello"} percentage={percentagePerFace(historyStateCoin.map(res => res.coinFace), false)}/>
-
+                        <Text style={styles.littleText}>Turno # {historyStateCoin.length}</Text>
                     </View>
 
                     <View style={styles.historyList}>
@@ -137,7 +137,7 @@ const CoinScreen = () => {
                             </View>
                     }
                 </View>
-            </ImageBackground>
+            {/* </ImageBackground> */}
         </View>
     )
 }
@@ -145,10 +145,11 @@ const CoinScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex:1,
+        backgroundColor:"#6626FF"
     },
     
     titleWelcome: {
-        fontSize: 26,
+        fontSize: 28,
         fontFamily: "sans-serif", 
         fontWeight: "bold",
         backgroundColor:"#BE85F3",
@@ -171,6 +172,18 @@ const styles = StyleSheet.create({
     statisticList:{
         flex:7,
     },
+
+    littleText:{
+        fontSize: 14,
+        fontFamily: "sans-serif",
+        fontWeight: "bold",
+        // position:"absolute",
+        // right:0,
+        // bottom:0,
+        // justifyContent:"center",
+        textAlign:"center"
+
+    },
     
     historyList: {
         flex:8,   
@@ -184,7 +197,7 @@ const styles = StyleSheet.create({
     actionButton:{
         flex:1,
         backgroundColor:"#FDBEFF",
-        minHeight: 70,
+        minHeight: 80,
         width: "85%",
         justifyContent:"space-evenly",
         flexDirection:"row",
@@ -202,6 +215,7 @@ const styles = StyleSheet.create({
     tinyLogo: {
         flex:1,
         justifyContent:"center",
+        aspectRatio:1,
     },
 
     bottomText:{

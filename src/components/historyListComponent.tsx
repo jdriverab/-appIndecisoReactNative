@@ -45,9 +45,9 @@ const styles = StyleSheet.create({
     },
 
     textStyleIndex:{
-        minWidth:70,
+        minWidth:75,
         textAlign:"left", 
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: "bold",
     },
 })

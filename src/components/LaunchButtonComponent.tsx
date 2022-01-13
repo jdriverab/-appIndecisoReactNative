@@ -15,7 +15,7 @@ const LaunchButtonComponent = ({text, onPress, size}:props) => {
         return(
 
             <TouchableOpacity onPress={onPress} activeOpacity={0.5} 
-            style={styles.fabLocation}>
+            style={styles.fabLocation} accessibilityLabel={size == "large" ? "Action button" : "Refresh button" }>
 
                 <View style={[styles.fab, size == "large" ? styles.fabLarge : styles.fabSmall]}>
 
@@ -37,7 +37,7 @@ const LaunchButtonComponent = ({text, onPress, size}:props) => {
 
         return(
 
-            <View style={styles.fabLocation}>
+            <View style={styles.fabLocation} accessibilityLabel={size == "large" ? "Action button" : "Refresh button" }>
 
                 <TouchableNativeFeedback onPress={onPress} 
                 background={TouchableNativeFeedback.Ripple("#28425B",false, size == "large" ? 90 : 25)}>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
 
     fabLarge: {
         width: 180,
-        height: 40, 
+        height: 60, 
         borderRadius:5,
         shadowOffset: {
             width: 130,
@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
     },
 
     fabSmall: {
-        width: 50,
-        height: 50, 
+        width: 60,
+        height: 60, 
         borderRadius:100,
         shadowOffset: {
             width: 0,
