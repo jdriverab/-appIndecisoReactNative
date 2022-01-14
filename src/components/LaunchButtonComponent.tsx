@@ -39,7 +39,7 @@ const LaunchButtonComponent = ({text, onPress, size}:props) => {
 
             <View style={styles.fabLocation} accessibilityLabel={size == "large" ? "Action button" : "Refresh button" }>
 
-                <TouchableNativeFeedback onPress={onPress} 
+                <TouchableNativeFeedback accessibilityLabel={size == "large" ? "Action button" : "Refresh button" } onPress={onPress} 
                 background={TouchableNativeFeedback.Ripple("#28425B",false, size == "large" ? 90 : 25)}>
 
                     <View style={[ styles.fab, size == "large" ? styles.fabLarge : styles.fabSmall]}>
