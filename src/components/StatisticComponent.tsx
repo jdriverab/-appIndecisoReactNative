@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        flex:1,
         fontSize: 31,
         fontFamily: "sans-serif", 
         fontWeight: "bold",
@@ -68,12 +67,11 @@ const styles = StyleSheet.create({
     },
 
     number: {
+        // flex:1,
         fontSize:35,
         fontWeight: "bold",
         fontFamily: "sans-serif",
         color:"red",
-        textAlign:"center",
-        alignSelf:"center",
     }
 })
 
